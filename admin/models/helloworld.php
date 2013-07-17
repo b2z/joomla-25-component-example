@@ -48,6 +48,16 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	}
 
 	/**
+	 * Метод для получения скрипта, который будет включен в форму.
+	 *
+	 * @return  string  Файл скрипта.
+	 */
+	public function getScript()
+	{
+		return 'administrator/components/com_helloworld/models/forms/helloworld.js';
+	}
+
+	/**
 	 * Метод для получения данных, которые должны быть загружены в форму.
 	 *
 	 * @return  mixed  Данные для формы.

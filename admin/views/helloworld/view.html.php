@@ -25,6 +25,13 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 	protected $form;
 
 	/**
+	 * JavaScript файл валидации формы.
+	 *
+	 * @var  string
+	 */
+	protected $script;
+
+	/**
 	 * Отображает представление.
 	 *
 	 * @param   string  $tpl  Имя файла шаблона.
@@ -40,12 +47,16 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 			// Получаем данные из модели.
 			$this->form = $this->get('Form');
 			$this->item = $this->get('Item');
+			$this->script = $this->get('Script');
 
 			// Устанавливаем панель инструментов.
 			$this->addToolBar();
 
 			// Отображаем представление.
 			parent::display($tpl);
+
+			// Устанавливаем документ.
+			$this->setDocument();
 		}
 		catch (Exception $e)
 		{
@@ -67,5 +78,19 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 		JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
 		JToolBarHelper::save('helloworld.save');
 		JToolBarHelper::cancel('helloworld.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
+	}
+
+	/**
+	 * Метод для установки свойств документа.
+	 *
+	 * @return  void
+	 */
+	protected function setDocument()
+	{
+		$document = JFactory::getDocument();
+		$document->addScript(JURI::root() . $this->script);
+		$document->addScript(
+			JURI::root() . "administrator/components/com_helloworld/views/helloworld/submitbutton.js");
+		JText::script('COM_HELLOWORLD_HELLOWORLD_ERROR_UNACCEPTABLE');
 	}
 }

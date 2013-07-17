@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
+<form
+	addrulepath="/administrator/components/com_helloworld/models/rules"
+>
 	<fieldset>
 		<field
 			name="id"
@@ -11,7 +13,9 @@
 			label="COM_HELLOWORLD_HELLOWORLD_FIELD_GREETING_LABEL"
 			description="COM_HELLOWORLD_HELLOWORLD_FIELD_GREETING_DESC"
 			size="40"
-			class="inputbox"
+			class="inputbox validate-greeting"
+			validate="greeting"
+			required="true"
 			default=""
 		/>
 	</fieldset>
