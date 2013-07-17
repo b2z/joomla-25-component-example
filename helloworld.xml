@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+
+	<name>Hello World!</name>
+	<!-- Следующие элементы необязательны -->
+	<creationDate>Июль 2012</creationDate>
+	<author>Вася Пупкин</author>
+	<authorEmail>Ваш e-mail</authorEmail>
+	<authorUrl>Ваш сайт</authorUrl>
+	<copyright>Информация о копирайте</copyright>
+	<license>Информация о лицензии</license>
+	<!--  Версия записывается в таблицу компонентов -->
+	<version>0.0.1</version>
+	<!-- Описание необязательно -->
+	<description>Описание компонента Hello World! ...</description>
+
+	<!-- Запускается при обновлении -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Раздел основных файлов сайта -->
+	<!-- Обратите внимание на значение аттрибута folder: Этот аттрибут описывает папку нашего пакета-установщика из которой должны копироваться файлы. 
+	Поэтому указанные в этом разделе файлы будут скопированы из папки /site/ нашего пакета-установщика в соответствующую папку установки. -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>helloworld.php</filename>
+	</files>
+
+	<!-- Администрирование -->
+	<administration>
+		<!-- Раздел Меню -->
+		<menu>Hello World!</menu>
+		<!-- Раздел основных файлов администрирования  -->
+		<!-- Обратите внимание на значение аттрибута folder: Этот аттрибут описывает папку нашего пакета-установщика из которой должны копироваться файлы. 
+		Поэтому указанные в этом разделе файлы будут скопированы из папки /admin/ нашего пакета-установщика в соответствующую папку установки. -->
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>helloworld.php</filename>
+			<folder>sql</folder>
+		</files>
+	</administration>
+
+</extension>
