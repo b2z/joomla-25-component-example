@@ -11,25 +11,14 @@ jimport('joomla.application.component.modelitem');
 class HelloWorldModelHelloWorld extends JModelItem
 {
 	/**
-	 * Возвращает ссылку на объект таблицы.
-	 *
-	 * @param   string  $type    Тип таблицы.
-	 * @param   string  $prefix  Префикс имени класса таблицы. Необязателен.
-	 * @param   array   $config  Конифгурационный массив для таблицы. Необязателен.
-	 *
-	 * @return  JTable  Объект таблицы.
-	 */
-	public function getTable($type = 'HelloWorld', $prefix = 'HelloWorldTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
-	/**
 	 * Получаем сообщение.
 	 *
 	 * @param   int  $id  Id сообщения.
 	 *
-	 * @return  string  Сообщение, которое отображается пользователю.
+	 * @return  object  Объект сообщения, которое отображается пользователю.
+	 *
+	 * @throws  Exception  Если сообщение не найдено.
+	 *
 	 */
 	public function getItem($id = null)
 	{
@@ -43,14 +32,34 @@ class HelloWorldModelHelloWorld extends JModelItem
 
 		if (!isset($this->_item[$id]))
 		{
-			// Получаем экземпляр класса TableHelloWorld.
-			$table = $this->getTable();
+			// Конструируем SQL запрос.
+			$query = $this->_db->getQuery(true);
+			$query->select('h.greeting, h.params')
+				->from('#__helloworld as h')
+				->select('c.title as category')
+				->leftJoin('#__categories as c ON c.id = h.catid')
+				->where('h.id = ' . (int) $id);
 
-			// Загружаем сообщение.
-			$table->load($id);
+			$this->_db->setQuery($query);
+			$data = $this->_db->loadObject();
 
-			// Назначаем сообщение.
-			$this->_item[$id] = $table->greeting;
+			// Генерируем исключение, если сообщение не найдено.
+			if (empty($data))
+			{
+				throw new Exception(JText::_('COM_HELLOWORLD_ERROR_MESSAGE_NOT_FOUND'), 404);
+			}
+
+			// Загружаем JSON строку параметров.
+			$params = new JRegistry;
+			$params->loadString($data->params);
+			$data->params = $params;
+
+			// Объединяем глобальные параметры с индивидуальными.
+			$params = clone $this->getState('params');
+			$params->merge($data->params);
+			$data->params = $params;
+
+			$this->_item[$id] = $data;
 		}
 
 		return $this->_item[$id];
@@ -72,6 +81,12 @@ class HelloWorldModelHelloWorld extends JModelItem
 
 		// Добавляем Id сообщения в состояние модели.
 		$this->setState('message.id', $id);
+
+		// Загружаем глобальные параметры.
+		$params = $app->getParams();
+
+		// Добавляем параметры в состояние модели.
+		$this->setState('params', $params);
 
 		parent::populateState();
 	}

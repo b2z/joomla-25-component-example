@@ -2,7 +2,7 @@
 <form
 	addrulepath="/administrator/components/com_helloworld/models/rules"
 >
-	<fieldset>
+	<fieldset name="details">
 		<field
 			name="id"
 			type="hidden"
@@ -31,4 +31,22 @@
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 	</fieldset>
+	<fields name="params">
+		<fieldset
+			name="params"
+			label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+		>
+			<field
+				name="show_category"
+				type="list"
+				label="COM_HELLOWORLD_HELLOWORLD_FIELD_SHOW_CATEGORY_LABEL"
+				description="COM_HELLOWORLD_HELLOWORLD_FIELD_SHOW_CATEGORY_DESC"
+				default=""
+			>
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+		</fieldset>
+	</fields>
 </form>

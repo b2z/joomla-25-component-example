@@ -1,0 +1,1 @@
+ALTER TABLE `#__helloworld` ADD `params` TEXT NOT NULL DEFAULT '';

@@ -19,4 +19,50 @@ class HelloWorldTableHelloWorld extends JTable
 	{
 		parent::__construct('#__helloworld', 'id', $db);
 	}
+
+	/**
+	 * Переопределяем bind метод JTable.
+	 *
+	 * @param   array  $array   Массив значений.
+	 * @param   array  $ignore  Массив значений, которые должны быть игнорированы.
+	 *
+	 * @return  null|string  Null, если нет ошибок, в противном слуае ошибка.
+	 */
+	public function bind($array, $ignore = array())
+	{
+		if (isset($array['params']) && is_array($array['params']))
+		{
+			// Конвертируем поле параметров в JSON строку.
+			$parameter = new JRegistry;
+			$parameter->loadArray($array['params']);
+			$array['params'] = (string) $parameter;
+		}
+
+		return parent::bind($array, $ignore);
+	}
+
+	/**
+	 * Переопределяем load метод JTable.
+	 *
+	 * @param   int      $pk     Первичный ключ.
+	 * @param   boolean  $reset  Сбрасывать данные перед загрузкой или нет.
+	 *
+	 * @return  boolean  True если все прошло успешно, в противном случае false.
+	 */
+	public function load($pk = null, $reset = true)
+	{
+		if (parent::load($pk, $reset))
+		{
+			// Конвертируем поле параметров в регистр.
+			$params = new JRegistry;
+			$params->loadString($this->params);
+			$this->params = $params;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
