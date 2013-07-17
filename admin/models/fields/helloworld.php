@@ -30,8 +30,10 @@ class JFormFieldHelloWorld extends JFormFieldList
 
 		// Конструируем SQL запрос.
 		$query = $db->getQuery(true);
-		$query->select('id, greeting')
-			->from('#__helloworld');
+		$query->select('h.id, h.greeting, h.catid')
+			->from('#__helloworld as h')
+			->select('c.title as category')
+			->leftJoin('#__categories AS c ON c.id = h.catid');
 		$db->setQuery($query);
 		$messages = $db->loadObjectList();
 
@@ -42,7 +44,9 @@ class JFormFieldHelloWorld extends JFormFieldList
 		{
 			foreach ($messages as $message)
 			{
-				$options[] = JHtml::_('select.option', $message->id, $message->greeting);
+				$options[] = JHtml::_('select.option', $message->id,
+					$message->greeting . ($message->catid ? ' (' . $message->category . ')' : '')
+				);
 			}
 		}
 

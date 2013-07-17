@@ -18,5 +18,17 @@
 			required="true"
 			default=""
 		/>
+		<field
+			name="catid"
+			type="category"
+			extension="com_helloworld"
+			class="inputbox"
+			default=""
+			label="COM_HELLOWORLD_HELLOWORLD_FIELD_CATID_LABEL"
+			description="COM_HELLOWORLD_HELLOWORLD_FIELD_CATID_DESC"
+			required="true"
+		>
+			<option value="0">JOPTION_SELECT_CATEGORY</option>
+		</field>
 	</fieldset>
 </form>

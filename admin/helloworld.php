@@ -5,9 +5,8 @@ defined('_JEXEC') or die;
 // Устанавливаем обработку ошибок в режим использования Exception.
 JError::$legacy = false;
 
-// Устанавливаем некоторые глобальные свойства.
-$document = JFactory::getDocument();
-$document->addStyleDeclaration('.icon-48-helloworld {background-image: url(../media/com_helloworld/images/hello-48x48.png);}');
+// Подключаем хелпер.
+JLoader::register('HelloWorldHelper', dirname(__FILE__) . '/helpers/helloworld.php');
 
 // Подключаем библиотеку контроллера Joomla.
 jimport('joomla.application.component.controller');
