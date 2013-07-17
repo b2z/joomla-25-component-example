@@ -25,6 +25,13 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 	protected $pagination;
 
 	/**
+	 * Состояние модели.
+	 *
+	 * @var  object
+	 */
+	protected $state;
+
+	/**
 	 * Доступы пользователя.
 	 *
 	 * @var  object
@@ -49,6 +56,9 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 
 			// Получаем объект постраничной навигации.
 			$this->pagination = $this->get('Pagination');
+
+			// Получаем объект состояния модели.
+			$this->state = $this->get('State');
 
 			// Получаем доступы пользователя.
 			$this->canDo = HelloWorldHelper::getActions();

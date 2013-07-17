@@ -1,0 +1,1 @@
+ALTER TABLE `#__helloworld` ADD `ordering` INT(11) NOT NULL DEFAULT '0' AFTER `catid`;
