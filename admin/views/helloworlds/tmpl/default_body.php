@@ -11,7 +11,7 @@ foreach ($this->items as $i => $item) :
 		</td>
 		<td>
 			<?php if ($canEdit) : ?>
-				<a href="<?php echo JRoute::_('index.php?option=com_helloworld&task=helloworld.edit&id=' . (int)$item->id); ?>">
+				<a href="<?php echo JRoute::_('index.php?option=com_helloworld&task=helloworld.edit&id=' . (int) $item->id); ?>">
 					<?php echo $this->escape($item->greeting); ?>
 				</a>
 			<?php else : ?>

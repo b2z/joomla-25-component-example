@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+
+	<update>
+		<name>HelloWorld</name>
+		<description>Компонент Hello World!</description>
+		<element>com_helloworld</element>
+		<type>component</type>
+		<version>0.0.13</version>
+
+		<infourl title="Hello World! URL">http://вашдомен.ru</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://вашдомен.ru/files/com_helloworld-0.0.13-final.zip</downloadurl>
+		</downloads>
+
+		<maintainer>Вася Пупкин</maintainer>
+		<maintainerurl>Ваш сайт</maintainerurl>
+		<targetplatform name="joomla" version="2.5" />
+	</update>
+
+</updates>

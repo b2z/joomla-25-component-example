@@ -29,7 +29,7 @@ $params = $this->form->getFieldsets('params');
 		foreach ($params as $name => $fieldset):
 			echo JHtml::_('sliders.panel', JText::_($fieldset->label), $name . '-params');
 
-			if (isset($fieldset->description) && trim($fieldset->description)) : ?>
+			if (isset($fieldset->description) && trim($fieldset->description)): ?>
 				<p class="tip"><?php echo $this->escape(JText::_($fieldset->description));?></p>
 			<?php endif;?>
 
