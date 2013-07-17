@@ -32,6 +32,13 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 	protected $script;
 
 	/**
+	 * Доступы пользователя.
+	 *
+	 * @var  object
+	 */
+	protected $canDo;
+
+	/**
 	 * Отображает представление.
 	 *
 	 * @param   string  $tpl  Имя файла шаблона.
@@ -48,6 +55,9 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 			$this->form = $this->get('Form');
 			$this->item = $this->get('Item');
 			$this->script = $this->get('Script');
+
+			// Получаем доступы пользователя.
+			$this->canDo = HelloWorldHelper::getActions($this->item->catid, $this->item->id);
 
 			// Устанавливаем панель инструментов.
 			$this->addToolBar();
@@ -75,9 +85,50 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 		$isNew = ($this->item->id == 0);
 
 		JToolBarHelper::title($isNew ? JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_NEW') : JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_EDIT'), 'helloworld');
-		JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
-		JToolBarHelper::save('helloworld.save');
-		JToolBarHelper::cancel('helloworld.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
+
+		// Устанавливаем действия для новых и существующих записей.
+		if ($isNew)
+		{
+			// Для новых записей проверяем право создания.
+			if ($this->canDo->get('core.create'))
+			{
+				JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('helloworld.save', 'JTOOLBAR_SAVE');
+				JToolBarHelper::custom('helloworld.save2new', 'save-new.png',
+										'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false
+										);
+			}
+
+			JToolBarHelper::cancel('helloworld.cancel', 'JTOOLBAR_CANCEL');
+		}
+		else
+		{
+			// Для существующих записей проверяем право редактирования.
+			if ($this->canDo->get('core.edit'))
+			{
+				// Мы можем сохранять новую запись.
+				JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('helloworld.save', 'JTOOLBAR_SAVE');
+
+				// Мы можем сохранять  в новую запись, но нужна проверка на создание.
+				if ($this->canDo->get('core.create'))
+				{
+					JToolBarHelper::custom('helloworld.save2new', 'save-new.png',
+											'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false
+											);
+				}
+			}
+
+			// Для сохранения копии записи проверяем право создания.
+			if ($this->canDo->get('core.create'))
+			{
+				JToolBarHelper::custom('helloworld.save2copy', 'save-copy.png',
+										'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false
+										);
+			}
+
+			JToolBarHelper::cancel('helloworld.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
+		}
 	}
 
 	/**

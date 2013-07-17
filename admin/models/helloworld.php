@@ -74,4 +74,23 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 
 		return $data;
 	}
+
+	/**
+	 * Метод для проверки, может ли пользователь удалять существующую запись.
+	 *
+	 * @param   object  $record  Объект записи.
+	 *
+	 * @return  boolean  True, если разрешено удалять запись.
+	 */
+	protected function canDelete($record)
+	{
+		if (!empty($record->id))
+		{
+			return JFactory::getUser()->authorise('core.delete', 'com_helloworld.message.' . (int) $record->id);
+		}
+		else
+		{
+			return parent::canDelete($record);
+		}
+	}
 }

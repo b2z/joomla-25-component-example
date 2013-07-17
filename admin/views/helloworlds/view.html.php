@@ -25,6 +25,13 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 	protected $pagination;
 
 	/**
+	 * Доступы пользователя.
+	 *
+	 * @var  object
+	 */
+	protected $canDo;
+
+	/**
 	 * Отображаем список сообщений.
 	 *
 	 * @param   string  $tpl  Имя файла шаблона.
@@ -42,6 +49,9 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 
 			// Получаем объект постраничной навигации.
 			$this->pagination = $this->get('Pagination');
+
+			// Получаем доступы пользователя.
+			$this->canDo = HelloWorldHelper::getActions();
 
 			// Устанавливаем панель инструментов.
 			$this->addToolBar();
@@ -64,11 +74,27 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 	protected function addToolBar()
 	{
 		JToolBarHelper::title(JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLDS'), 'helloworld');
-		JToolBarHelper::addNew('helloworld.add');
-		JToolBarHelper::editList('helloworld.edit');
-		JToolBarHelper::divider();
-		JToolBarHelper::deleteList('', 'helloworlds.delete');
-		JToolBarHelper::divider();
-		JToolBarHelper::preferences('com_helloworld');
+
+		if ($this->canDo->get('core.create'))
+		{
+			JToolBarHelper::addNew('helloworld.add');
+		}
+
+		if ($this->canDo->get('core.edit'))
+		{
+			JToolBarHelper::editList('helloworld.edit');
+		}
+
+		if ($this->canDo->get('core.delete'))
+		{
+			JToolBarHelper::divider();
+			JToolBarHelper::deleteList('', 'helloworlds.delete');
+		}
+
+		if ($this->canDo->get('core.admin'))
+		{
+			JToolBarHelper::divider();
+			JToolBarHelper::preferences('com_helloworld');
+		}
 	}
 }

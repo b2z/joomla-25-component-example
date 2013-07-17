@@ -2,6 +2,12 @@
 // Запрет прямого доступа.
 defined('_JEXEC') or die;
 
+// Проверка доступа.
+if (!JFactory::getUser()->authorise('core.manage', 'com_helloworld'))
+{
+	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 401);
+}
+
 // Устанавливаем обработку ошибок в режим использования Exception.
 JError::$legacy = false;
 
