@@ -8,7 +8,7 @@ foreach ($this->items as $i => $item) : ?>
 			<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 		</td>
 		<td>
-			<?php echo $item->greeting; ?>
+			<?php echo $this->escape($item->greeting); ?>
 		</td>
 		<td class="center">
 			<?php echo $item->id; ?>

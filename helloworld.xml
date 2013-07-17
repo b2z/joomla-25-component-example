@@ -10,7 +10,7 @@
 	<copyright>Информация о копирайте</copyright>
 	<license>Информация о лицензии</license>
 	<!--  Версия записывается в таблицу компонентов -->
-	<version>0.0.6</version>
+	<version>0.0.7</version>
 	<!-- Описание необязательно -->
 	<description>COM_HELLOWORLD_XML_DESCRIPTION</description>
 
@@ -45,10 +45,15 @@
 		<folder>views</folder>
 	</files>
 
+	<media destination="com_helloworld" folder="media">
+		<filename>index.html</filename>
+		<folder>images</folder>
+	</media>
+
 	<!-- Администрирование -->
 	<administration>
 		<!-- Раздел Меню -->
-		<menu>COM_HELLOWORLD_MENU</menu>
+		<menu img="../media/com_helloworld/images/hello-16x16.png">COM_HELLOWORLD_MENU</menu>
 		<!-- Раздел основных файлов администрирования  -->
 		<!-- Обратите внимание на значение аттрибута folder: Этот аттрибут описывает папку нашего пакета-установщика из которой должны копироваться файлы. 
 		Поэтому указанные в этом разделе файлы будут скопированы из папки /admin/ нашего пакета-установщика в соответствующую папку установки. -->
@@ -56,6 +61,7 @@
 			<filename>index.html</filename>
 			<filename>controller.php</filename>
 			<filename>helloworld.php</filename>
+			<folder>controllers</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>

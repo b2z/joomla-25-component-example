@@ -6,26 +6,26 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 /**
- * HTML представление списка сообщений компонента HelloWorld.
+ * HTML представление редактирования сообщения.
  */
-class HelloWorldViewHelloWorlds extends JViewLegacy
+class HelloWorldViewHelloWorld extends JViewLegacy
 {
 	/**
-	 * Сообщения.
-	 *
-	 * @var  array
-	 */
-	protected $items;
-
-	/**
-	 * Постраничная навигация.
+	 * Сообщение.
 	 *
 	 * @var  object
 	 */
-	protected $pagination;
+	protected $item;
 
 	/**
-	 * Отображаем список сообщений.
+	 * Объект формы.
+	 *
+	 * @var  array
+	 */
+	protected $form;
+
+	/**
+	 * Отображает представление.
 	 *
 	 * @param   string  $tpl  Имя файла шаблона.
 	 *
@@ -38,17 +38,14 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 		try
 		{
 			// Получаем данные из модели.
-			$this->items = $this->get('Items');
-
-			// Получаем объект постраничной навигации.
-			$this->pagination = $this->get('Pagination');
+			$this->form = $this->get('Form');
+			$this->item = $this->get('Item');
 
 			// Устанавливаем панель инструментов.
 			$this->addToolBar();
 
 			// Отображаем представление.
 			parent::display($tpl);
-
 		}
 		catch (Exception $e)
 		{
@@ -59,14 +56,16 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 	/**
 	 * Устанавливает панель инструментов.
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	protected function addToolBar()
 	{
-		JToolBarHelper::title(JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLDS'), 'helloworld');
-		JToolBarHelper::addNew('helloworld.add');
-		JToolBarHelper::editList('helloworld.edit');
-		JToolBarHelper::divider();
-		JToolBarHelper::deleteList('', 'helloworlds.delete');
+		JFactory::getApplication()->input->set('hidemainmenu', true);
+		$isNew = ($this->item->id == 0);
+
+		JToolBarHelper::title($isNew ? JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_NEW') : JText::_('COM_HELLOWORLD_MANAGER_HELLOWORLD_EDIT'), 'helloworld');
+		JToolBarHelper::apply('helloworld.apply', 'JTOOLBAR_APPLY');
+		JToolBarHelper::save('helloworld.save');
+		JToolBarHelper::cancel('helloworld.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
 	}
 }

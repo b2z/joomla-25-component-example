@@ -7,4 +7,4 @@ defined('_JEXEC') or die;
 		<?php echo $this->escape($this->params->get('page_heading')); ?>
 	</h1>
 <?php endif; ?>
-<h2><?php echo $this->item; ?></h2>
+<h2><?php echo $this->escape($this->item); ?></h2>
