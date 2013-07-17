@@ -11,6 +11,20 @@ jimport('joomla.application.component.modelitem');
 class HelloWorldModelHelloWorld extends JModelItem
 {
 	/**
+	 * Возвращает ссылку на объект таблицы.
+	 *
+	 * @param   string  $type    Тип таблицы.
+	 * @param   string  $prefix  Префикс имени класса таблицы. Необязателен.
+	 * @param   array   $config  Конифгурационный массив для таблицы. Необязателен.
+	 *
+	 * @return  JTable  Объект таблицы.
+	 */
+	public function getTable($type = 'HelloWorld', $prefix = 'HelloWorldTable', $config = array())
+	{
+		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	/**
 	 * Получаем сообщение.
 	 *
 	 * @param   int  $id  Id сообщения.
@@ -22,22 +36,24 @@ class HelloWorldModelHelloWorld extends JModelItem
 		// Если id не установлено, то получаем его из состояния.
 		$id = (!empty($id)) ? $id : (int) $this->getState('message.id');
 
-		if (!isset($this->_item))
+		if ($this->_item === null)
 		{
-			switch ($id)
-			{
-				case 2:
-					$this->_item = 'Good bye World!';
-					break;
-
-				case 1:
-				default:
-					$this->_item = 'Hello World!';
-					break;
-			}
+			$this->_item = array();
 		}
 
-		return $this->_item;
+		if (!isset($this->_item[$id]))
+		{
+			// Получаем экземпляр класса TableHelloWorld.
+			$table = $this->getTable();
+
+			// Загружаем сообщение.
+			$table->load($id);
+
+			// Назначаем сообщение.
+			$this->_item[$id] = $table->greeting;
+		}
+
+		return $this->_item[$id];
 	}
 
 	/**
