@@ -26,7 +26,7 @@ class HelloWorldTableHelloWorld extends JTable
 	 * @param   array  $array   Массив значений.
 	 * @param   array  $ignore  Массив значений, которые должны быть игнорированы.
 	 *
-	 * @return  null|string  Null, если нет ошибок, в противном слуае ошибка.
+	 * @return  boolean  True если все прошло успешно, в противном случае false.
 	 */
 	public function bind($array, $ignore = array())
 	{
