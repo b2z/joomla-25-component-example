@@ -20,7 +20,7 @@ class HelloWorldViewHelloWorld extends JViewLegacy
 	/**
 	 * Объект формы.
 	 *
-	 * @var  array
+	 * @var  object
 	 */
 	protected $form;
 
