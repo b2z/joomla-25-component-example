@@ -48,7 +48,6 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 
 			// Отображаем представление.
 			parent::display($tpl);
-
 		}
 		catch (Exception $e)
 		{
