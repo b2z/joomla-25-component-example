@@ -12,6 +12,31 @@ class HelloWorldControllerHelloWorld extends JControllerForm
 {
 	/**
 	 * Переопределение метода для проверки,
+	 * может ли пользователь добавлять запись.
+	 *
+	 * @param   array  $data  Массив данных.
+	 *
+	 * @return  boolean  True, если разрешено редактировать запись.
+	 */
+	protected function allowAdd($data = array())
+	{
+		// Получаем значение категории из массива.
+		$categoryId = JArrayHelper::getValue($data, 'catid', 0, 'int');
+
+		if ($categoryId)
+		{
+			// Проверка добавления на уровне категории.
+			return JFactory::getUser()->authorise('core.create', $this->option . '.category.' . $categoryId);
+		}
+		else
+		{
+			// Проверка добавления на уровне компонента.
+			return parent::allowAdd($data);
+		}
+	}
+
+	/**
+	 * Переопределение метода для проверки,
 	 * может ли пользователь редактировать существующую запись.
 	 *
 	 * @param   array   $data  Массив данных.
@@ -26,7 +51,7 @@ class HelloWorldControllerHelloWorld extends JControllerForm
 		if ($recordId)
 		{
 			// Проверка редактирования на уровне записи.
-			return JFactory::getUser()->authorise('core.edit', 'com_helloworld.message.' . $recordId);
+			return JFactory::getUser()->authorise('core.edit', $this->option . '.message.' . $recordId);
 		}
 		else
 		{
