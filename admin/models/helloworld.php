@@ -55,7 +55,7 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Проверка сессии на наличие ранее введеных в форму данных.
-		$data = JFactory::getApplication()->getUserState($this->option . 'edit.helloworld.data', array());
+		$data = JFactory::getApplication()->getUserState($this->option . '.edit.helloworld.data', array());
 
 		if (empty($data))
 		{
