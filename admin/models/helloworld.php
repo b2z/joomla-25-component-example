@@ -35,9 +35,9 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Получаем форму.
-		$form = $this->loadForm('com_helloworld.helloworld', 'helloworld',
-								array('control' => 'jform', 'load_data' => $loadData)
-								);
+		$form = $this->loadForm(
+			$this->option . '.helloworld', 'helloworld', array('control' => 'jform', 'load_data' => $loadData)
+		);
 
 		if (empty($form))
 		{
@@ -54,7 +54,7 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_helloworld/models/forms/helloworld.js';
+		return 'administrator/components/' . $this->option . '/models/forms/helloworld.js';
 	}
 
 	/**
@@ -65,7 +65,7 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Проверка сессии на наличие ранее введеных в форму данных.
-		$data = JFactory::getApplication()->getUserState('com_helloworld.edit.helloworld.data', array());
+		$data = JFactory::getApplication()->getUserState($this->option . '.edit.helloworld.data', array());
 
 		if (empty($data))
 		{
@@ -86,7 +86,7 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	{
 		if (!empty($record->id))
 		{
-			return JFactory::getUser()->authorise('core.delete', 'com_helloworld.message.' . (int) $record->id);
+			return JFactory::getUser()->authorise('core.delete', $this->option . '.message.' . (int) $record->id);
 		}
 		else
 		{
