@@ -35,9 +35,9 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Получаем форму.
-		$form = $this->loadForm('com_helloworld.helloworld', 'helloworld',
-								array('control' => 'jform', 'load_data' => $loadData)
-								);
+		$form = $this->loadForm(
+			$this->option . '.helloworld', 'helloworld', array('control' => 'jform', 'load_data' => $loadData)
+		);
 
 		if (empty($form))
 		{
@@ -55,7 +55,7 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Проверка сессии на наличие ранее введеных в форму данных.
-		$data = JFactory::getApplication()->getUserState('com_helloworld.edit.helloworld.data', array());
+		$data = JFactory::getApplication()->getUserState($this->option . '.helloworld.data', array());
 
 		if (empty($data))
 		{
