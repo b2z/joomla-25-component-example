@@ -6,11 +6,11 @@
 		<description>Компонент Hello World!</description>
 		<element>com_helloworld</element>
 		<type>component</type>
-		<version>0.0.14</version>
+		<version>0.0.15</version>
 
 		<infourl title="Hello World! URL">http://вашдомен.ru</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">http://вашдомен.ru/files/com_helloworld-0.0.14-final.zip</downloadurl>
+			<downloadurl type="full" format="zip">http://вашдомен.ru/files/com_helloworld-0.0.15-final.zip</downloadurl>
 		</downloads>
 
 		<maintainer>Вася Пупкин</maintainer>

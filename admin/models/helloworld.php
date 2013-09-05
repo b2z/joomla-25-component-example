@@ -44,6 +44,17 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 			return false;
 		}
 
+		$id = JFactory::getApplication()->input->get('id', 0);
+		$user = JFactory::getUser();
+
+		// Изменяем форму исходя из доступов пользователя.
+		if ($id != 0 && (!$user->authorise('core.edit.state', $this->option . '.message.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('core.edit.state', $this->option)))
+		{
+			// Модифицируем поля.
+			$form->setFieldAttribute('state', 'disabled', 'true');
+		}
+
 		return $form;
 	}
 
@@ -91,6 +102,31 @@ class HelloWorldModelHelloWorld extends JModelAdmin
 		else
 		{
 			return parent::canDelete($record);
+		}
+	}
+
+	/**
+	 * Метод для проверки, может ли пользователь изменять состояние записи.
+	 *
+	 * @param   object  $record  Объект записи.
+	 *
+	 * @return  boolean  True, если разрешено  изменять состояние записи.
+	 */
+	protected function canEditState($record)
+	{
+		$user = JFactory::getUser();
+
+		if (!empty($record->id))
+		{
+			return $user->authorise('core.edit.state', $this->option . '.message.' . (int) $record->id);
+		}
+		elseif (!empty($record->catid))
+		{
+			return $user->authorise('core.edit.state', $this->option . '.category.' . (int) $record->catid);
+		}
+		else
+		{
+			return parent::canEditState($record);
 		}
 	}
 }

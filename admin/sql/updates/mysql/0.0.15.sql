@@ -1,0 +1,1 @@
+ALTER TABLE `#__helloworld` ADD `state` tinyint(1) NOT NULL DEFAULT '0' AFTER `greeting`;

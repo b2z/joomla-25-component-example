@@ -23,6 +23,7 @@ class HelloWorldModelHelloWorlds extends JModelList
 			$config['filter_fields'] = array(
 				'id', 'id',
 				'greeting', 'greeting',
+				'state', 'state',
 				'ordering', 'ordering',
 			);
 		}
@@ -42,7 +43,7 @@ class HelloWorldModelHelloWorlds extends JModelList
 		$query = $db->getQuery(true);
 
 		// Выбераем поля.
-		$query->select('id, greeting, ordering');
+		$query->select('id, greeting, state, ordering');
 
 		// Из таблицы helloworld.
 		$query->from('#__helloworld');

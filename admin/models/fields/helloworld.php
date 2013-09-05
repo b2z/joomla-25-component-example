@@ -33,7 +33,8 @@ class JFormFieldHelloWorld extends JFormFieldList
 		$query->select('h.id, h.greeting, h.catid')
 			->from('#__helloworld as h')
 			->select('c.title as category')
-			->leftJoin('#__categories AS c ON c.id = h.catid');
+			->leftJoin('#__categories AS c ON c.id = h.catid')
+			->where('h.state > 0');
 		$db->setQuery($query);
 		$messages = $db->loadObjectList();
 
@@ -48,6 +49,10 @@ class JFormFieldHelloWorld extends JFormFieldList
 					$message->greeting . ($message->catid ? ' (' . $message->category . ')' : '')
 				);
 			}
+		}
+		else
+		{
+			$options[] = JHtml::_('select.option', 0, JText::_('COM_HELLOWORLD_ERROR_MESSAGE_NOT_FOUND'));
 		}
 
 		$options = array_merge(parent::getOptions(), $options);
