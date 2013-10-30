@@ -22,6 +22,6 @@ class HelloWorldModelHelloWorld extends JModelItem
 			$this->_item = 'Hello World!';
 		}
 
-		return $$this->_item;
+		return $this->_item;
 	}
 }
