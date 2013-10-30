@@ -8,7 +8,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 ?>
 <tr>
 	<th width="1%">
-		<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)"
+		<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 	</th>
 	<th>
 		<?php echo JHtml::_('grid.sort', 'COM_HELLOWORLD_HELLOWORLD_HEADING_GREETING', 'greeting', $listDirn, $listOrder); ?>
