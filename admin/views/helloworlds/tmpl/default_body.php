@@ -25,6 +25,9 @@ foreach ($this->items as $i => $item) :
 			<?php endif; ?>
 		</td>
 		<td class="center">
+			<?php echo $this->escape($item->category_title); ?>
+		</td>
+		<td class="center">
 			<?php echo JHtml::_('jgrid.published', $item->state, $i, 'helloworlds.', $canChange); ?>
 		</td>
 		<td class="order">

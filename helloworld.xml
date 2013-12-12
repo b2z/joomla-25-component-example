@@ -10,7 +10,7 @@
 	<copyright>Информация о копирайте</copyright>
 	<license>Информация о лицензии</license>
 	<!--  Версия записывается в таблицу компонентов -->
-	<version>0.0.15</version>
+	<version>0.0.16</version>
 	<!-- Описание необязательно -->
 	<description>COM_HELLOWORLD_XML_DESCRIPTION</description>
 

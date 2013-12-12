@@ -14,6 +14,9 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<?php echo JHtml::_('grid.sort', 'COM_HELLOWORLD_HELLOWORLD_HEADING_GREETING', 'greeting', $listDirn, $listOrder); ?>
 	</th>
 	<th width="10%">
+		<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+	</th>
+	<th width="10%">
 		<?php echo JHtml::_('grid.sort', 'JSTATUS', 'state', $listDirn, $listOrder); ?>
 	</th>
 	<th width="10%">
