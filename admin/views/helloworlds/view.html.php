@@ -101,12 +101,15 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 			JToolbarHelper::unpublish('helloworlds.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 			JToolBarHelper::divider();
 			JToolBarHelper::archiveList('helloworlds.archive');
-			JToolBarHelper::trash('helloworlds.trash');
 		}
 
 		if ($this->state->get('filter.state') == -2 && $this->canDo->get('core.delete'))
 		{
 			JToolBarHelper::deleteList('', 'helloworlds.delete', 'JTOOLBAR_EMPTY_TRASH');
+		}
+		elseif ($this->canDo->get('core.edit.state'))
+		{
+			JToolBarHelper::trash('helloworlds.trash');
 		}
 
 		if ($this->canDo->get('core.admin'))
