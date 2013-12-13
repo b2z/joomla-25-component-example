@@ -21,7 +21,7 @@ class HelloWorldControllerHelloWorld extends JControllerForm
 	protected function allowAdd($data = array())
 	{
 		// Получаем значение категории из массива.
-		$categoryId = JArrayHelper::getValue($data, 'catid', 0, 'int');
+		$categoryId = JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->getInt('filter_category_id', 0), 'int');
 
 		if ($categoryId)
 		{

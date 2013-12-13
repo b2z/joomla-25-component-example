@@ -80,8 +80,8 @@ abstract class HelloWorldHelper
 			$accessFile = JPATH_ADMINISTRATOR . '/components/com_helloworld/access.xml';
 			$actions = JAccess::getActionsFromFile($accessFile, "/access/section[@name='" . $section . "']/");
 
-			// Для сообщения добавляем действие core.admin.
-			if ($section == 'message')
+			// Для сообщения и категорий добавляем действие core.admin.
+			if ($section == 'category' || $section == 'message')
 			{
 				$adminAction = new stdClass;
 				$adminAction->name = 'core.admin';

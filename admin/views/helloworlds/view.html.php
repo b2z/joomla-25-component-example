@@ -61,7 +61,7 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 			$this->state = $this->get('State');
 
 			// Получаем доступы пользователя.
-			$this->canDo = HelloWorldHelper::getActions();
+			$this->canDo = HelloWorldHelper::getActions($this->state->get('filter.category_id'));
 
 			// Устанавливаем панель инструментов.
 			$this->addToolBar();
@@ -99,12 +99,17 @@ class HelloWorldViewHelloWorlds extends JViewLegacy
 			JToolBarHelper::divider();
 			JToolbarHelper::publish('helloworlds.publish', 'JTOOLBAR_PUBLISH', true);
 			JToolbarHelper::unpublish('helloworlds.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+			JToolBarHelper::divider();
+			JToolBarHelper::archiveList('helloworlds.archive');
 		}
 
-		if ($this->canDo->get('core.delete'))
+		if ($this->state->get('filter.state') == -2 && $this->canDo->get('core.delete'))
 		{
-			JToolBarHelper::divider();
-			JToolBarHelper::deleteList('', 'helloworlds.delete');
+			JToolBarHelper::deleteList('', 'helloworlds.delete', 'JTOOLBAR_EMPTY_TRASH');
+		}
+		elseif ($this->canDo->get('core.edit.state'))
+		{
+			JToolBarHelper::trash('helloworlds.trash');
 		}
 
 		if ($this->canDo->get('core.admin'))
