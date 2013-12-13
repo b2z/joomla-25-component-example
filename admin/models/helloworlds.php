@@ -83,7 +83,7 @@ class HelloWorldModelHelloWorlds extends JModelList
 
 		if (!empty($search))
 		{
-			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$search = $db->quote('%' . $db->escape($search, true) . '%', false);
 			$query->where('h.greeting LIKE ' . $search);
 		}
 
